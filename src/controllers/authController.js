@@ -1,11 +1,11 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../config/db.js";
-import { clearCookie, setCookie } from "../utils/generatetoken.js";
+import { clearCookie, setCookie } from "../utils/generatedToken.js";
 
 //  REGISTER
 export const register = async (req, res) => {
   try {
-    const { full_name, email, password } = req.validBody;
+    const { fullName, email, password } = req.validBody;
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -25,7 +25,7 @@ export const register = async (req, res) => {
     // Create User
     const user = await prisma.user.create({
       data: {
-        full_name,
+        fullName,
         email,
         password: hashedPassword,
       },
