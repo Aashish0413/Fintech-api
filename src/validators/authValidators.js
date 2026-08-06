@@ -1,8 +1,9 @@
 import { z } from "zod";
+
 export const registerValidator = z.object({
   fullName: z.string().trim().min(3, "name should be of 3 characters").max(10),
   email: z.email("invalid email address").trim(),
-  password: z.string().trim().min(8, "Password should be 8 characterslong."),
+  password: z.string().trim().min(8, "Password should be 8 characters long."),
 });
 
 export const loginValidators = z.object({

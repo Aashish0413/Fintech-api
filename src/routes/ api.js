@@ -1,5 +1,5 @@
 import { Router } from "express";
-import authRoutes from "./authRoutes.js";
+import authRoutes from "./authRoutes.js"
 import transactionRoutes from "./transactionRoutes.js"
 import categoryRoutes from "./categoryRoutes.js"
 const router = Router();
