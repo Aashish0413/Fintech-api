@@ -1,0 +1,16 @@
+export const validateBody = (schema) => {
+  return (req, res, next) => {
+    const result = schema.safeParse(req.body);
+
+    if (!result.success) {
+      return res.status(422).json({
+        success: false,
+        message: "Validation error",
+        error: result.error.message,
+      });
+    }
+
+    req.validBody = result.data;
+    next();
+  };
+};
