@@ -21,10 +21,10 @@ export const getCategory = async (req, res) => {
 // POST /api/categories
 export const createCategory = async (req, res) => {
   try {
-    const { userId, name, type } = req.body;
+    const { name, type } = req.body;
 
     const newCategory = await prisma.categories.create({
-      data: { userId, name, type },
+      data: { userId: req.user.id, name: req.user.fullName, type },
     });
 
     res.status(201).json(newCategory);
@@ -37,11 +37,11 @@ export const createCategory = async (req, res) => {
 export const editCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, type } = req.body;
+    const { type } = req.body;
 
     const updatedCategory = await prisma.categories.update({
       where: { id },
-      data: { name, type },
+      data: { type },
     });
 
     res.status(200).json(updatedCategory);

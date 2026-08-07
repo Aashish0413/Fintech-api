@@ -5,11 +5,12 @@ import {
   editCategory,
   getCategory,
 } from "../controllers/categoryController.js";
+import { protect } from "../middleware/ authMiddleware.js";
 const router = Router();
 
-router.get("/:id",getCategory);
-router.post("/",createCategory);
-router.put("/:id",editCategory);
-router.delete("/:id",deleteCategory);
+router.get("/:id", protect, getCategory);
+router.post("/", protect, createCategory);
+router.put("/:id", protect, editCategory);
+router.delete("/:id", protect, deleteCategory);
 
 export default router;
