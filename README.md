@@ -19,3 +19,10 @@
 3. POST /api/transactions
 4. PUT /api/transactions/:id
 5. DELETE /api/transactions/:id
+
+
+## user id
+107399ad-5c78-41cd-89e9-eea610d54a42 
+
+## category id
+68c7190a-59c8-4866-82d7-3b1905092f91

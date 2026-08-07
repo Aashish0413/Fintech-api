@@ -31,14 +31,33 @@ export const getTransaction = async (req, res) => {
 // POST /api/transactions
 export const createTransaction = async (req, res) => {
   try {
-    const { userId, categoryId, amount, type, description, date } = req.body;
+    const {
+      userId,
+      categoryId,
+      title,
+      amount,
+      type,
+      note,
+      transactionDate,
+    } = req.body;
 
     const newTransaction = await prisma.transactions.create({
-      data: { userId, categoryId, amount, type, description, date },
+      data: {
+        userId,
+        categoryId,
+        title,
+        amount: Number(amount),
+        type,
+        note,
+        ...(transactionDate && {
+          transactionDate: new Date(transactionDate),
+        }),
+      },
     });
 
     res.status(201).json(newTransaction);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 };
@@ -47,22 +66,42 @@ export const createTransaction = async (req, res) => {
 export const editTransaction = async (req, res) => {
   try {
     const { id } = req.params;
-    const { categoryId, amount, type, description, date } = req.body;
+    const {
+      categoryId,
+      title,
+      amount,
+      type,
+      note,
+      transactionDate,
+    } = req.body;
 
     const updatedTransaction = await prisma.transactions.update({
       where: { id },
-      data: { categoryId, amount, type, description, date },
+      data: {
+        categoryId,
+        title,
+        amount: Number(amount),
+        type,
+        note,
+        ...(transactionDate && {
+          transactionDate: new Date(transactionDate),
+        }),
+      },
     });
 
     res.status(200).json(updatedTransaction);
   } catch (error) {
     if (error.code === "P2025") {
-      return res.status(404).json({ message: "Transaction not found" });
+      return res.status(404).json({
+        message: "Transaction not found",
+      });
     }
-    res.status(400).json({ message: error.message });
+
+    res.status(400).json({
+      message: error.message,
+    });
   }
 };
-
 // DELETE /api/transactions/:id
 export const deleteTransaction = async (req, res) => {
   try {
