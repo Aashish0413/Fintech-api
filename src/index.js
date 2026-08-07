@@ -2,7 +2,7 @@ import cookieParser from "cookie-parser";
 import "dotenv/config";
 import express from "express";
 import { connectDatabase } from "./config/db.js";
-import routes from "./routes/ api.js";
+import routes from "./routes/api.js"
 
 connectDatabase();
 
